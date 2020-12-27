@@ -8,30 +8,22 @@ import android.content.Context;
 
 public class Battery
 {
-	// Needed to get the battery level.
-	private Context context;
-
-	public Battery(Context context)
-	{
-		this.context = context;
-	}
-
 	// Return the battery level as a float between 0 and 1 (1 being fully charged, 0 fulled discharged)
-    public float GetBatteryPct()
+    public static Float GetBatteryPct(Context context)
     {
-    	Intent batteryStatus = GetBatteryStatusIntent();
+    	Intent batteryStatus = GetBatteryStatusIntent(context);
 
     	int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 		int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 
-		float batteryPct = level / (float)scale;
+		Float batteryPct = level / (float)scale;
 		return batteryPct;
     }
 
     // Return whether or not we're currently on charge
-    public boolean IsBatteryCharging()
+    public static Boolean IsBatteryCharging(Context context)
     {
-    	Intent batteryStatus = GetBatteryStatusIntent();
+    	Intent batteryStatus = GetBatteryStatusIntent(context);
 
     	int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
     	return status == BatteryManager.BATTERY_STATUS_CHARGING || 
@@ -39,7 +31,7 @@ public class Battery
     }
 
     // Battery status intent
-    private Intent GetBatteryStatusIntent()
+    private static Intent GetBatteryStatusIntent(Context context)
     {
  		IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
 		return context.registerReceiver(null, ifilter);
