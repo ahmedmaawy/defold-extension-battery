@@ -15,3 +15,6 @@ dependencies = https://github.com/Insality/druid/archive/master.zip
 [library]
 include_dirs = battery
 
+[android]
+manifest = /battery/AndroidManifest.xml
+
