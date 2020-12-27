@@ -5,7 +5,7 @@ local default_style = require("druid.styles.default.style")
 function init(self)
 	druid.set_default_style(default_style)
 	self.druid = druid.new(self)
-	progress = self.druid:new_progress("battery_progress", const.SIDE.X, 0.5)
+	self.progress = self.druid:new_progress("battery_progress", "x", 0.5)
 end
 
 function final(self)

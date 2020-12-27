@@ -42,10 +42,13 @@ struct AttachScope
 };
 }
 
+#endif
+
 // C / C++ Native Functions
 
 static int Percentage(lua_State* L)
 {
+#if defined(DM_PLATFORM_ANDROID)
     DM_LUA_STACK_CHECK(L, 1);
     AttachScope attachscope;
     JNIEnv* env = attachscope.m_Env;
@@ -56,11 +59,15 @@ static int Percentage(lua_State* L)
     jfloat return_value = (jfloat)env->CallStaticObjectMethod(cls, method);
     lua_pushnumber(L, return_value);
     env->DeleteLocalRef(return_value);
+#else
+    lua_pushnumber(L, 1.0);  
+#endif
     return 1;
 }
 
 static int IsCharging(lua_State* L)
 {
+#if defined(DM_PLATFORM_ANDROID)
     DM_LUA_STACK_CHECK(L, 1);
     AttachScope attachscope;
     JNIEnv* env = attachscope.m_Env;
@@ -71,10 +78,11 @@ static int IsCharging(lua_State* L)
     jboolean return_value = (jboolean)env->CallStaticObjectMethod(cls, method);
     lua_pushboolean(L, return_value);
     env->DeleteLocalRef(return_value);
+#else
+    lua_pushboolean(L, false);   
+#endif
     return 1;
 }
-
-#endif
 
 static int SelfCheck(lua_State* L)
 {
@@ -86,10 +94,8 @@ static int SelfCheck(lua_State* L)
 // Functions exposed to Lua
 static const luaL_reg Module_methods[] =
 {
-#if defined(DM_PLATFORM_ANDROID)
     {"percetage", Percentage},
     {"is_charging", IsCharging},
-#endif
     {"self_check", SelfCheck},
     {0, 0}
 };
