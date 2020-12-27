@@ -68,12 +68,12 @@ static int Percentage(lua_State* L)
     JNIEnv* env = attachscope.m_Env;
 
     jclass cls = GetClass(env, "com.defold.Battery.Battery");
-    jmethodID method = env->GetStaticMethodID(cls, "GetBatteryPct", "(Landroid/content/Context;)Ljava/lang/Float;");
+    jmethodID method = env->GetStaticMethodID(cls, "GetBatteryPct", "(Landroid/content/Context;)Ljava/lang/Integer;");
     
-    jfloat return_value = (jfloat)env->CallStaticFloatMethod(cls, method, dmGraphics::GetNativeAndroidActivity());
+    jint return_value = (jint)env->CallStaticIntMethod(cls, method, dmGraphics::GetNativeAndroidActivity());
     lua_pushnumber(L, return_value);
 #else
-    lua_pushnumber(L, 1.0);  
+    lua_pushnumber(L, 100);
 #endif
     return 1;
 }

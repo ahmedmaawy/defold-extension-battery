@@ -6,17 +6,19 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Context;
 
+import java.lang.Math;
+
 public class Battery
 {
 	// Return the battery level as a float between 0 and 1 (1 being fully charged, 0 fulled discharged)
-    public static Float GetBatteryPct(Context context)
+    public static Integer GetBatteryPct(Context context)
     {
     	Intent batteryStatus = GetBatteryStatusIntent(context);
 
     	int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 		int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 
-		Float batteryPct = level / (float)scale;
+		Integer batteryPct = Math.round(level * 100 / (float)scale);
 		return batteryPct;
     }
 
