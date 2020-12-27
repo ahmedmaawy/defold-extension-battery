@@ -27,7 +27,7 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
+    x: 1.204
     y: 1.0
     z: 1.0
     w: 1.0
@@ -131,7 +131,7 @@ nodes {
 }
 nodes {
   position {
-    x: 534.0
+    x: 565.0
     y: 285.0
     z: 0.0
     w: 1.0
@@ -255,7 +255,7 @@ nodes {
 }
 nodes {
   position {
-    x: 534.0
+    x: 565.0
     y: 234.0
     z: 0.0
     w: 1.0

@@ -42,6 +42,20 @@ struct AttachScope
 };
 }
 
+static jclass GetClass(JNIEnv* env, const char* classname)
+{
+    jclass activity_class = env->FindClass("android/app/NativeActivity");
+    jmethodID get_class_loader = env->GetMethodID(activity_class,"getClassLoader", "()Ljava/lang/ClassLoader;");
+    jobject cls = env->CallObjectMethod(dmGraphics::GetNativeAndroidActivity(), get_class_loader);
+    jclass class_loader = env->FindClass("java/lang/ClassLoader");
+    jmethodID find_class = env->GetMethodID(class_loader, "loadClass", "(Ljava/lang/String;)Ljava/lang/Class;");
+
+    jstring str_class_name = env->NewStringUTF(classname);
+    jclass outcls = (jclass)env->CallObjectMethod(cls, find_class, str_class_name);
+    env->DeleteLocalRef(str_class_name);
+    return outcls;
+}
+
 #endif
 
 // C / C++ Native Functions
@@ -56,9 +70,8 @@ static int Percentage(lua_State* L)
     jclass cls = GetClass(env, "com.defold.Battery.Battery");
     jmethodID method = env->GetStaticMethodID(cls, "GetBatteryPct", "()Ljava/lang/Float;");
     
-    jfloat return_value = (jfloat)env->CallStaticObjectMethod(cls, method);
+    jfloat return_value = (jfloat)env->CallFloatMethod(cls, method);
     lua_pushnumber(L, return_value);
-    env->DeleteLocalRef(return_value);
 #else
     lua_pushnumber(L, 1.0);  
 #endif
@@ -75,9 +88,8 @@ static int IsCharging(lua_State* L)
     jclass cls = GetClass(env, "com.defold.Battery.Battery");
     jmethodID method = env->GetStaticMethodID(cls, "IsBatteryCharging", "()Ljava/lang/Boolean;");
     
-    jboolean return_value = (jboolean)env->CallStaticObjectMethod(cls, method);
+    jboolean return_value = (jboolean)env->CallBooleanMethod(cls, method);
     lua_pushboolean(L, return_value);
-    env->DeleteLocalRef(return_value);
 #else
     lua_pushboolean(L, false);   
 #endif

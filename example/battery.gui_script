@@ -5,7 +5,17 @@ local default_style = require("druid.styles.default.style")
 function init(self)
 	druid.set_default_style(default_style)
 	self.druid = druid.new(self)
-	self.progress = self.druid:new_progress("battery_progress", "x", 0.5)
+	battery_percentage = battery.percetage()
+	battery_is_charging = battery.is_charging()
+	local battery_charging_text = "Not charging"
+
+	if battery_is_charging then
+		battery_charging_text = "Charging"
+	end
+	
+	self.progress = self.druid:new_progress("battery_progress", "x", battery_percentage)
+	gui.set_text(gui.get_node("percentage"), (battery_percentage * 100))
+	gui.set_text(gui.get_node("is_charging"), battery_charging_text)
 end
 
 function final(self)
