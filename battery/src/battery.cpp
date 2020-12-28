@@ -68,12 +68,12 @@ static int Percentage(lua_State* L)
     JNIEnv* env = attachscope.m_Env;
 
     jclass cls = GetClass(env, "com.defold.Battery.Battery");
-    jmethodID method = env->GetStaticMethodID(cls, "GetBatteryPct", "(Landroid/content/Context;)Ljava/lang/Integer;");
+    jmethodID method = env->GetStaticMethodID(cls, "GetBatteryPct", "(Landroid/content/Context;)I");
     
-    jint return_value = (jint)env->CallStaticIntMethod(cls, method, dmGraphics::GetNativeAndroidActivity());
-    lua_pushnumber(L, return_value);
+    int return_value = env->CallStaticIntMethod(cls, method, dmGraphics::GetNativeAndroidActivity());
+    lua_pushinteger(L, return_value);
 #else
-    lua_pushnumber(L, 100);
+    lua_pushinteger(L, 100);
 #endif
     return 1;
 }
@@ -89,7 +89,7 @@ static int IsCharging(lua_State* L)
     jmethodID method = env->GetStaticMethodID(cls, "IsBatteryCharging", "(Landroid/content/Context;)Ljava/lang/Boolean;");
     
     jboolean return_value = (jboolean)env->CallStaticBooleanMethod(cls, method, dmGraphics::GetNativeAndroidActivity());
-    lua_pushboolean(L, return_value);
+    lua_pushboolean(L, (bool)return_value);
 #else
     lua_pushboolean(L, false);   
 #endif
