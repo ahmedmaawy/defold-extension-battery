@@ -86,10 +86,10 @@ static int IsCharging(lua_State* L)
     JNIEnv* env = attachscope.m_Env;
 
     jclass cls = GetClass(env, "com.defold.Battery.Battery");
-    jmethodID method = env->GetStaticMethodID(cls, "IsBatteryCharging", "(Landroid/content/Context;)Ljava/lang/Boolean;");
+    jmethodID method = env->GetStaticMethodID(cls, "IsBatteryCharging", "(Landroid/content/Context;)Z");
     
-    jboolean return_value = (jboolean)env->CallStaticBooleanMethod(cls, method, dmGraphics::GetNativeAndroidActivity());
-    lua_pushboolean(L, (bool)return_value);
+    bool return_value = env->CallStaticBooleanMethod(cls, method, dmGraphics::GetNativeAndroidActivity());
+    lua_pushboolean(L, return_value);
 #else
     lua_pushboolean(L, false);   
 #endif

@@ -23,14 +23,13 @@ public class Battery
     }
 
     // Return whether or not we're currently on charge
-    public static Boolean IsBatteryCharging(Context context)
+    public static boolean IsBatteryCharging(Context context)
     {
     	Intent batteryStatus = GetBatteryStatusIntent(context);
 
-        // To check if full:
-        // BatteryManager.BATTERY_STATUS_FULL
     	int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-    	return status == BatteryManager.BATTERY_STATUS_CHARGING;
+    	return status == BatteryManager.BATTERY_STATUS_CHARGING ||
+            status == BatteryManager.BATTERY_STATUS_FULL;
     }
 
     // Battery status intent
