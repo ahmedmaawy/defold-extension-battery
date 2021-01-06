@@ -12,3 +12,7 @@ The repo comes with a sample GUI that shows you charge % and charging status.
 * `battery.is_charging()` - Boolean status of whether charging or not
 
 You can use these 2 functions in your lua code.
+
+## Screen shot
+
+![screenshot](docs/extension-android-battery.jpeg)
