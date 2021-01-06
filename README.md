@@ -16,3 +16,7 @@ You can use these 2 functions in your lua code.
 ## Screen shot
 
 ![screenshot](docs/extension-android-battery.jpeg)
+
+## Credits
+
+* Battery Icon - derived from [icons8.com](https://icons8.com/icon/11406/empty-battery).
