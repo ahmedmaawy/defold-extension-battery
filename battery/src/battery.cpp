@@ -106,7 +106,7 @@ static int SelfCheck(lua_State* L)
 // Functions exposed to Lua
 static const luaL_reg Module_methods[] =
 {
-    {"percetage", Percentage},
+    {"percentage", Percentage},
     {"is_charging", IsCharging},
     {"self_check", SelfCheck},
     {0, 0}

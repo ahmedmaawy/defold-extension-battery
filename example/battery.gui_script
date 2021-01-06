@@ -5,7 +5,7 @@ local default_style = require("druid.styles.default.style")
 function init(self)
 	druid.set_default_style(default_style)
 	self.druid = druid.new(self)
-	battery_percentage = battery.percetage()
+	battery_percentage = battery.percentage()
 	battery_is_charging = battery.is_charging()
 	local battery_charging_text = "Not charging"
 
